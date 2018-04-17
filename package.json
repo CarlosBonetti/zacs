@@ -1,0 +1,16 @@
+{
+  "name": "zeplin-crawler",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "babel-node index.js"
+  },
+  "dependencies": {
+    "puppeteer": "1.3.0"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-preset-env": "1.6.1"
+  }
+}
