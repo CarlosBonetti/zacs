@@ -1,16 +1,20 @@
 const puppeteer = require('puppeteer')
 
+const USERNAME = 'bonetti@bridge.ufsc.br'
+const PASSWORD = 'XXXX'
+
 const sismob = '55bbd2cebcebcc33197f6551'
 const pec = '5a291aadc25bad024132423a'
 
 const getArtboardImages = async (projectId) => {
+    const result = {}
     const browser = await puppeteer.launch()
     const page = await browser.newPage()
 
     // Login
     await page.goto(`https://app.zeplin.io/project/${projectId}}`)
-    await page.type('[name=handle]', 'bonetti@bridge.ufsc.br')
-    await page.type('[name=password]', 'xxx')
+    await page.type('[name=handle]', USERNAME)
+    await page.type('[name=password]', PASSWORD)
     await page.click('button')
     await page.waitForNavigation()
 
@@ -27,11 +31,14 @@ const getArtboardImages = async (projectId) => {
             await page.screenshot({ path: `screenshots/${sid}.png` })
         }
         console.log(sid + ': ' + src)
+        result[sid] = src
     }
 
     await browser.close()
+    return result
 }
 
 (async () => {
-    await getArtboardImages(pec)
+    const result = await getArtboardImages(pec)
+    console.log(result)
 })()
