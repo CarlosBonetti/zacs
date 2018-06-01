@@ -1,9 +1,8 @@
 import puppeteer from 'puppeteer'
 import pLimit from 'p-limit'
-import logger from './logger'
 
-const USERNAME = process.env.ZEPLIN_USERNAME
-const PASSWORD = process.env.ZEPLIN_PASSWORD
+import config from './config'
+import logger from './logger'
 
 /**
  * Retrieve all artboard images from a zeplin project.
@@ -15,11 +14,12 @@ const getArtboardImages = async (projectId) => {
     const result = {}
     const browser = await puppeteer.launch()
     const page = await browser.newPage()
+    page.setDefaultNavigationTimeout(config.CRAWLER_TIMEOUT)
 
     // Login
     await page.goto(`https://app.zeplin.io/project/${projectId}}`)
-    await page.type('[name=handle]', USERNAME)
-    await page.type('[name=password]', PASSWORD)
+    await page.type('[name=handle]', config.ZEPLIN_USERNAME)
+    await page.type('[name=password]', config.ZEPLIN_PASSWORD)
     await page.click('button')
     await page.waitForNavigation()
 
@@ -50,6 +50,8 @@ const getArtboardImages = async (projectId) => {
  */
 const getArtboardImage = async (browser, projectId, sid) => {
     const page = await browser.newPage()
+    page.setDefaultNavigationTimeout(config.CRAWLER_TIMEOUT)
+
     await page.goto(`https://app.zeplin.io/project/${projectId}/screen/${sid}`)
     await page.waitForSelector('#screenImage[src]')
     const src = await page.$eval('#screenImage', (elem) => elem.getAttribute('src'))
@@ -71,11 +73,12 @@ const getArtboardImage = async (browser, projectId, sid) => {
 export const getScreen = async (projectId, sid) => {
     const browser = await puppeteer.launch()
     const page = await browser.newPage()
+    page.setDefaultNavigationTimeout(config.CRAWLER_TIMEOUT)
 
     // Login
     await page.goto(`https://app.zeplin.io/project/${projectId}`)
-    await page.type('[name=handle]', USERNAME)
-    await page.type('[name=password]', PASSWORD)
+    await page.type('[name=handle]', config.ZEPLIN_USERNAME)
+    await page.type('[name=password]', config.ZEPLIN_PASSWORD)
     await page.click('button')
     await page.waitForNavigation()
 

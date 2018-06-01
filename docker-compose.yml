@@ -1,5 +1,15 @@
 version: '2'
 services:
+    app:
+        build: .
+        links:
+            - mongodb
+        ports:
+            - "80:3000"
+        environment:
+            - MONGODB_URL=mongodb://mongodb/zeplin-crawler
+            - ZEPLIN_USERNAME
+            - ZEPLIN_PASSWORD
     mongodb:
         image: mongo:latest
         container_name: "mongodb"
@@ -10,4 +20,3 @@ services:
           # - ./data/db:/data/db
         ports:
             - 27017:27017
-        # command: mongod --smallfiles --logpath=/dev/null # --quiet

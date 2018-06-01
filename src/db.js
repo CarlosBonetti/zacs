@@ -1,9 +1,9 @@
-/* eslint-disable no-console */
-
 import mongoose, { Schema } from 'mongoose'
-import logger from './logger'
 
-mongoose.connect('mongodb://0.0.0.0/zeplin-crawler')
+import logger from './logger'
+import config from './config'
+
+mongoose.connect(config.MONGODB_URL)
 
 const db = mongoose.connection
 
