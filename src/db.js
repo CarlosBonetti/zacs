@@ -1,15 +1,16 @@
 /* eslint-disable no-console */
 
 import mongoose, { Schema } from 'mongoose'
+import logger from './logger'
 
 mongoose.connect('mongodb://0.0.0.0/zeplin-crawler')
 
 const db = mongoose.connection
 
-db.on('error', console.error.bind(console, 'connection error:'))
+db.on('error', logger.error)
 
 db.once('open', () => {
-    console.log('Connected to mongodb') 
+    logger.debug('Connected to mongodb')
 })
 
 export default db
@@ -18,7 +19,7 @@ const projectSchema = new Schema({
     pid: {
         type: String,
         required: true,
-    },  
+    },
 })
 
 const screenSchema = new Schema({
