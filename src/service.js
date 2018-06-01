@@ -1,7 +1,14 @@
+import schedule from 'node-schedule'
+
 import { getApiData } from './crawler'
 import logger from './logger'
 
-const cache = {}
+let cache = {}
+
+const clearCacheJob = schedule.scheduleJob('0 0 * * * *', () => {
+    cache = {}
+    logger.debug('Cache cleaned')
+})
 
 export const getScreenUrl = async (projectId, screenId) => {
     let apiData = cache[projectId]
