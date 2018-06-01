@@ -2,21 +2,8 @@ version: '2'
 services:
     app:
         build: .
-        links:
-            - mongodb
         ports:
             - "80:3000"
         environment:
-            - MONGODB_URL=mongodb://mongodb/zeplin-crawler
             - ZEPLIN_USERNAME
             - ZEPLIN_PASSWORD
-    mongodb:
-        image: mongo:latest
-        container_name: "mongodb"
-        # environment:
-        #   - MONGO_DATA_DIR=/data/db
-        #   - MONGO_LOG_DIR=/dev/null
-        # volumes:
-          # - ./data/db:/data/db
-        ports:
-            - 27017:27017
