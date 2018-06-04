@@ -3,7 +3,7 @@ services:
     app:
         build: .
         ports:
-            - "4462:3000"
+            - "127.0.0.1:4462:3000"
         environment:
             - ZEPLIN_USERNAME
             - ZEPLIN_PASSWORD
