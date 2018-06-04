@@ -23,3 +23,6 @@ app.get('/:projectId/:screenId.png', async (req, res) => {
     }
 })
 
+app.get('*', (req, res) => {
+    res.status(404).send()
+})
