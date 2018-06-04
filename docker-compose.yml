@@ -5,6 +5,7 @@ services:
         ports:
             - "127.0.0.1:4462:3000"
         environment:
+            - NODE_ENV=production
             - ZEPLIN_USERNAME
             - ZEPLIN_PASSWORD
         restart: always
