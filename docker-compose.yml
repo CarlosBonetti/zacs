@@ -7,3 +7,4 @@ services:
         environment:
             - ZEPLIN_USERNAME
             - ZEPLIN_PASSWORD
+        restart: always
