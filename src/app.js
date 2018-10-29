@@ -1,10 +1,22 @@
 import express from 'express'
 
-import { getScreenUrl } from './service'
+import { getScreenUrl, getProjectData } from './service'
 import logger from './logger'
 
 const app = express()
 export default app
+
+app.get('/:projectId', async (req, res) => {
+    const { projectId } = req.params
+
+    try {
+        const apiData = await getProjectData(projectId)
+        res.json(apiData)
+    } catch(err) {
+        logger.error(err.message)
+        res.status(400).send(err)
+    }
+})
 
 app.get('/:projectId/:screenId.png', async (req, res) => {
     const { projectId, screenId } = req.params
