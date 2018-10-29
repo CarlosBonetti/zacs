@@ -10,22 +10,32 @@ const clearCacheJob = schedule.scheduleJob('0 0 * * * *', () => {
     logger.debug('Cache cleaned')
 })
 
-export const getScreenUrl = async (projectId, screenId) => {
-    let apiData = cache[projectId]
+export const getProjectData = async (projectId) => {
+    let projectData = cache[projectId]
 
-    if (!apiData) {
+    if (!projectData) {
         logger.info(`Retrieving API data for project ${projectId}`)
 
         try {
-            apiData = await getApiData(projectId)
-            cache[projectId] = apiData
+            projectData = await getApiData(projectId)
+            cache[projectId] = projectData
         } catch(err) {
             logger.error(err.message)
             return null
         }
     }
 
-    const screen = apiData.project.screens.find(screen => screen._id === screenId)
+    return projectData
+}
+
+export const getScreenUrl = async (projectId, screenId) => {
+    let projectData = await getProjectData(projectId)
+
+    if (!projectData) {
+        return null
+    }
+
+    const screen = projectData.project.screens.find(screen => screen._id === screenId)
 
     if (!screen) {
         return null
