@@ -6,7 +6,7 @@ import logger from './logger'
 const app = express()
 export default app
 
-app.get('/:projectId', async (req, res) => {
+app.get('/api/:projectId', async (req, res) => {
     const { projectId } = req.params
 
     try {
