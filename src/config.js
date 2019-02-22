@@ -1,9 +1,8 @@
-import dotenv from 'dotenv'
+import dotenv from "dotenv"
 dotenv.config()
 
 if (!process.env.ZEPLIN_USERNAME || !process.env.ZEPLIN_PASSWORD) {
-    throw new Error('You must define ZEPLIN_USERNAME and ZEPLIN_PASSWORD')
-    exit(1)
+    throw new Error("You must define ZEPLIN_USERNAME and ZEPLIN_PASSWORD")
 }
 
 export const config = {
