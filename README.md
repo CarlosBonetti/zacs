@@ -1,3 +1,11 @@
+# :warning: DEPRECATION NOTICE :warning:
+
+This project is deprecated after the launch of the official Zeplin API, on February 2020. 
+
+See the official API docs: https://docs.zeplin.dev/
+
+***
+
 # zacs - Zeplin Automated Crawler Service
 
 A node crawler and API server for retrieving zeplin project information, since zeplin does not provide an official API for integration.
